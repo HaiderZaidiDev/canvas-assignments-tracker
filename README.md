@@ -2,7 +2,7 @@
 Goes through all of the courses a student is enrolled in on Canvas, and records the assignments and their due dates in a spreadsheet.
 
 ## Ideology
-I noticed quite a bit of people at my university spent multiple hours going through their Canvas by hand, adding all of their assignments in a spread sheet to help them keep track of what was done. I felt that this process could be automated, so I went ahead and did it.
+I noticed quite a bit of people at my university spent multiple hours going through their Canvas by hand, adding all of their assignments in a spread sheet to help them keep track of what needed to be done. I felt that this process could be automated, so I went ahead and did it.
 
 ## Use
 Before use, you need to create an access token on Canvas. To do this go to your profile on Canvas, click settings, then scroll down to approved integrations and create an access token. 
