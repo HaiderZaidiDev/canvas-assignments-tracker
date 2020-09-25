@@ -82,11 +82,12 @@ def homeView(request):
         sheetName = "Canvas-Assignments ({}).xlsx".format(tokenClean[5:10])
         writeToSheet(tokenClean)
         # Serving spreadsheet.
-        with open("pages/sheets/{}".format(sheetName),'rb') as spreadsheet:
+        with open("pages/sheets/user-sheets/{}".format(sheetName),'rb') as spreadsheet:
             sheet = spreadsheet.read()
             response = HttpResponse(sheet)
             response['Content-Type'] = 'mimetype/submimetype'
             response['Content-Disposition'] = 'attachment; filename={}'.format(sheetName)
             return response
+        print('update')
     return render(request, 'index.html', {'form':form})
 # Create your views here.
