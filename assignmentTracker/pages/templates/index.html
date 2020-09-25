@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+{% load static %}
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link href="{% static 'pages/main.css' %}" rel="stylesheet">
+
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-10 col-md-10 col-sm-10">
+          <div class="header ml-5 mt-5">
+            <h1> Schulich</h1>
+            <h2 class=""> Assignment Tracker </h2>
+            <p> Goes through all your courses on Canvas and logs your assignments in a spreadsheet, which you can sort by date, weight on your mark etc. Never miss an assignment again. </p>
+          </div>
+        </div>
+      </div>
+      <div class="form-wrapper mt-5">
+        <div class="row">
+          <div class="col-lg-10 col-md-10 col-sm-12">
+            <form class="token-form" method='POST'> {% csrf_token %}
+              <h3 class="text-left"> Canvas Access Token </h3>
+              <p class=""> Generate an access token from your <a href="https://schulich.instructure.com/profile/settings">profile settings page </a> on Canvas under “approved integrations”. Set the purpose to "Assignment Tracker", and leave the expiry blank. You can delete this after you've downloaded your spreadsheet. </p>
+              {{ form }}
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </body>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</html>
