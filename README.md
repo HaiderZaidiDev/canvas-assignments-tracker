@@ -12,6 +12,8 @@ If you're at Schulich, you can use this link: https://schulich.instructure.com/p
 Once you have your access token, set it as an environment variable on your device under the name "CANVAS_API_KEY", or you can just replace the environment variable in the script with a string of your access token.
 
 ## Demo
+Here's an example of what the spreadsheet looks like with my schedule.
+
 ![Spreadsheet Screenshot](https://i.imgur.com/St3tWkZ.png)
 
 ## To-do
