@@ -49,11 +49,14 @@ def writeToSheet(token):
     # Change this link based on the School you attend.
     API_KEY = token
     canvas = Canvas(API_URL, token)
-    workbook = load_workbook(filename='pages/sheets/Canvas Assignments (Master).xlsx')
+
+    workbook = load_workbook(filename='pages/sheets/master-sheets/Canvas Assignments (Master).xlsx')
     sheet = workbook.active
     allCourses = canvas.get_courses()
     courseIDS = []
     count = 1
+
+    # Getting IDS of all courses the user is enrolled in
     for items in allCourses:
         if items.id != 3967: # Schulich Academic Dishonesty Course
             courseIDS.append(items.id)
@@ -66,8 +69,8 @@ def writeToSheet(token):
             sheet.cell(row=count, column=1, value=info['dueDate'])
             sheet.cell(row=count, column=3, value=info['dueTime'])
             sheet.cell(row=count, column=11, value=info['weight'])
-    workbook.save(filename="pages/sheets/Canvas-Assignments ({}).xlsx".format(token[5:10]))
-
+    workbook.save(filename="pages/sheets/user-sheets/Canvas-Assignments ({}).xlsx".format(token[5:10]))
+    #Slices characters for differentiation of filename.
 
 
 def homeView(request):
@@ -78,12 +81,12 @@ def homeView(request):
         tokenClean = form.cleaned_data['token']
         sheetName = "Canvas-Assignments ({}).xlsx".format(tokenClean[5:10])
         writeToSheet(tokenClean)
+        # Serving spreadsheet.
         with open("pages/sheets/{}".format(sheetName),'rb') as spreadsheet:
             sheet = spreadsheet.read()
             response = HttpResponse(sheet)
             response['Content-Type'] = 'mimetype/submimetype'
             response['Content-Disposition'] = 'attachment; filename={}'.format(sheetName)
-            print('update')
             return response
     return render(request, 'index.html', {'form':form})
 # Create your views here.
