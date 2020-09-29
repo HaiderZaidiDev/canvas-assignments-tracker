@@ -50,7 +50,7 @@ def writeToSheet(token):
     API_KEY = token
     canvas = Canvas(API_URL, token)
 
-    workbook = load_workbook(filename='pages/sheets/master-sheets/Canvas Assignments (Master).xlsx')
+    workbook = load_workbook(filename='/var/www/canvas-assignments-to-excel/assignmentTracker/pages/sheets/master-sheets/Canvas Assignments (Master).xlsx')
     sheet = workbook.active
     allCourses = canvas.get_courses()
     courseIDS = []
@@ -69,7 +69,7 @@ def writeToSheet(token):
             sheet.cell(row=count, column=1, value=info['dueDate'])
             sheet.cell(row=count, column=3, value=info['dueTime'])
             sheet.cell(row=count, column=11, value=info['weight'])
-    workbook.save(filename="pages/sheets/user-sheets/Canvas-Assignments ({}).xlsx".format(token[5:10]))
+    workbook.save(filename="/var/www/canvas-assignments-to-excel/assignmentTracker/pages/sheets/user-sheets/Canvas-Assignments ({}).xlsx".format(token[5:10]))
     #Slices characters for differentiation of filename.
 
 
@@ -82,7 +82,7 @@ def homeView(request):
         sheetName = "Canvas-Assignments ({}).xlsx".format(tokenClean[5:10])
         writeToSheet(tokenClean)
         # Serving spreadsheet.
-        with open("pages/sheets/user-sheets/{}".format(sheetName),'rb') as spreadsheet:
+        with open("/var/www/canvas-assignments-to-excel/assignmentTracker/pages/sheets/user-sheets/{}".format(sheetName),'rb') as spreadsheet:
             sheet = spreadsheet.read()
             response = HttpResponse(sheet)
             response['Content-Type'] = 'mimetype/submimetype'
