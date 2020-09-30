@@ -10,8 +10,12 @@ label {
 }
 
 h1, h2, h3, p, li {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Helvetica Neue', sans-serif;
   color: white;
+}
+
+p {
+  font-weight: 300;
 }
 
 h1 {
@@ -37,12 +41,12 @@ a:hover {
 }
 
 .header h1 {
-  font-size: 4.5em;
+  font-size: 4em;
   text-transform: uppercase;
 }
 
 .header p {
-  font-size: 2em;
+  font-size: 1.75em;
   margin-left: 5vw;
   width: 75vw;
 }
@@ -73,6 +77,7 @@ footer {
 	width: 100vw;
 	height: 50px;
 	bottom: 0;
+  left: 0;
 	position: fixed;
 }
 

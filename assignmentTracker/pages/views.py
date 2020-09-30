@@ -1,12 +1,12 @@
 from django.shortcuts import render
 from .forms import AccessTokenForm
-
 from canvasapi import Canvas
 from datetime import datetime
 from openpyxl import load_workbook
 import os
 import mimetypes
 from django.http import HttpResponse
+from pytz import timezone
 
 
 def retrieveAssignments(course, token):
@@ -14,7 +14,11 @@ def retrieveAssignments(course, token):
     API_URL = "https://schulich.instructure.com/"
     # Change this link based on the School you attend.
     API_KEY = token
-    canvas = Canvas(API_URL, token)
+    try:
+        canvas = Canvas(API_URL, token)
+    except:
+        return render(request, 'error500.html', {})
+
     # Initialize a new Canvas object
 
     course = canvas.get_course(course)
@@ -29,14 +33,15 @@ def retrieveAssignments(course, token):
             dueDate = dueTime = "N/A"
         else:
             dueDateObj = datetime.strptime(dueDateRaw, '%Y-%m-%dT%H:%M:%SZ')
-            dueDate = dueDateObj.strftime("%Y-%m-%d")
-            dueTime = dueDateObj.strftime("%H:%M")
+            dueDateEST = dueDateObj.replace(tzinfo=timezone('UTC')).astimezone(timezone('EST5EDT'))
+            dueDate = dueDateEST.strftime("%Y-%m-%d")
+            dueTimeEST = dueDateEST.strftime("%H:%M")
 
         weight = assignment.points_possible
         assignmentInfo = {
             "course":course.name[0:11],
             "dueDate": dueDate,
-            "dueTime": dueTime,
+            "dueTime": dueTimeEST,
             "weight": weight
         }
         currentAssignment[name] = assignmentInfo
@@ -48,7 +53,10 @@ def writeToSheet(token):
     API_URL = "https://schulich.instructure.com/"
     # Change this link based on the School you attend.
     API_KEY = token
-    canvas = Canvas(API_URL, token)
+    try:
+        canvas = Canvas(API_URL, token)
+    except:
+        return render(request, 'error500.html', {})
 
     workbook = load_workbook(filename='/var/www/canvas-assignments-to-excel/assignmentTracker/pages/sheets/master-sheets/Canvas Assignments (Master).xlsx')
     sheet = workbook.active
@@ -72,7 +80,6 @@ def writeToSheet(token):
     workbook.save(filename="/var/www/canvas-assignments-to-excel/assignmentTracker/pages/sheets/user-sheets/Canvas-Assignments ({}).xlsx".format(token[5:10]))
     #Slices characters for differentiation of filename.
 
-
 def homeView(request):
     """ Renders home page, serves spreadsheet to user """
     form = AccessTokenForm(request.POST or None)
@@ -91,3 +98,11 @@ def homeView(request):
         print('update')
     return render(request, 'index.html', {'form':form})
 # Create your views here.
+
+def handler500View(request):
+    """ Error 500 handling """
+    return render(request, 'error500.html', {})
+
+def handler404View(request):
+    """ Error 404 handling """
+    return render(request, 'error404.html', {})
