@@ -1,13 +1,12 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 {% load static %}
 <html>
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Schulich Assignment Tracker </title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/95b6924dce.js" crossorigin="anonymous"></script>
     <link href="{% static 'pages/main_v3.css' %}" rel="stylesheet">
-    <title> Schulich Assignment Tracker </title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
   <body>
     <div class="container-fluid">
@@ -17,14 +16,14 @@
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
           <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="/assignment-tracker">Home </a>
+            </li>
             <li class="nav-item active">
-              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="#">Privacy<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="privacy.html">Privacy</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/github/canvas-assignments-tracker">Github</a>
+              <a class="nav-link" href="/github/canvas-assignments-tracker" target="_blank">Github</a>
             </li>
           </ul>
         </div>
@@ -33,34 +32,22 @@
         <img src="{% static 'pages/img/liquid-schulich.svg' %}"></img>
       </div>
       <div class="row">
-        <div class="col-lg-10 col-md-8 col-sm-12 col-xs-12">
+        <div class="col-lg-10 col-md-8 col-sm-4 col-xs-4">
           <div class="header">
-            <h1> Schulich Assignment Tracker </h1>
-            <h2> Logs all your Canvas assignments in a spreadsheet you can sort by date, weight etc. Never miss an assignment again. </h2>
+            <h1> Data Privacy </h1>
+            <h2> What data is being accessed, and how is it staying safe? </h2>
           </div>
-          <div class="credits">
-            <p> Made with <i class="fas fa-heart"></i> by <a href="/">Haider Zaidi</a> </p>
-          </div>
-
         </div>
       </div>
 
       <div class="col-lg-7 col-md-7 col-sm-3 col-xs-3">
         <div class="block-item">
-          <h3 class="ml-3"> Instructions </h3>
-          <p class="ml-3"> Generate an access token from your <a href="https://schulich.instructure.com/profile/settings" target="_blank">profile settings page</a> on Canvas under “approved integrations”. Set the purpose to "Assignment Tracker", and leave the expiry blank. Paste the token in the box below and press enter.  </p>
+          <h3 class="ml-3"> Secure and safe. </h3>
+          <p class="ml-3"> Data from the assignment tracker (your spreadsheet) is stored on a server in Toronto, Canada. The tracker only accesses the courses you're enrolled in, your assignments and their respective due dates. The tracker does not access any of your personal information, your grades, etc. For verifiability, the tracker is open-source. Anyone can <a href="https://github.com/HaiderZaidiDev/canvas-assignments-tracker" target="_blank">view the code here</a>, and see exactly what data is being accessed. All data stored is deleted off the server at the end of each semester. </p>
         </div>
       </div>
 
-      <div class="col-lg-8 col-md-6 col-sm-2 col-xs-2">
-        <div class="form-row">
-          <form class="token-form" method="post">{% csrf_token %}
-            <div class="form-group">
-              {{form}}
-            </div>
-          </form>
-        </div>
-      </div>
+
     </div>
     <!-- Bootstrap JS Dependencies (jQuery) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

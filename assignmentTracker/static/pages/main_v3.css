@@ -1,0 +1,78 @@
+#liquid-shape {
+  bottom: 0;
+  right: 0;
+  position: fixed;
+}
+
+h1, h2, p , li, .email-form, .email-label{
+  font-family: "Helvetica Neue";
+}
+
+h1 {
+  font-weight: 700;
+  font-size: 4em;
+}
+
+h2 {
+  font-weight: 300;
+  font-size: 2em;
+}
+
+p {
+  font-weight: 300;
+}
+
+label {
+  display: none;
+}
+
+.header {
+  margin-top: 12.5vh;
+  margin-left: 7.5vw;
+}
+
+.token-form {
+  margin-top: 2.5vh;
+  margin-left: 7vw;
+
+}
+.token-input {
+  background: #F3F3F3;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  width: 35vw;
+  height: 4vh;
+  padding-left: 0.5vw;
+}
+
+.token-label {
+  color: #6A6A6A;
+  font-weight: 400;
+  margin-left: 0.25vw
+}
+
+.block-item {
+    border-left: 2px solid #009D56;
+    margin-top: 3vh;
+    margin-left: 7vw;
+    height: auto;
+    font-family: "Helvetica Neue";
+
+
+}
+
+.block-item p {
+  font-family: "Helvetica Neue";
+  font-weight: 400;
+}
+
+.credits {
+  padding-top: 1vh;
+  margin-left: 7.5vw;
+}
+
+nav {
+  text-transform: lowercase;
+  font-weight: 400;
+}

@@ -35,13 +35,13 @@ def retrieveAssignments(course, token):
             dueDateObj = datetime.strptime(dueDateRaw, '%Y-%m-%dT%H:%M:%SZ')
             dueDateEST = dueDateObj.replace(tzinfo=timezone('UTC')).astimezone(timezone('EST5EDT'))
             dueDate = dueDateEST.strftime("%Y-%m-%d")
-            dueTimeEST = dueDateEST.strftime("%H:%M")
+            dueTime = dueDateEST.strftime("%H:%M")
 
         weight = assignment.points_possible
         assignmentInfo = {
             "course":course.name[0:11],
             "dueDate": dueDate,
-            "dueTime": dueTimeEST,
+            "dueTime": dueTime,
             "weight": weight
         }
         currentAssignment[name] = assignmentInfo
@@ -95,9 +95,12 @@ def homeView(request):
             response['Content-Type'] = 'mimetype/submimetype'
             response['Content-Disposition'] = 'attachment; filename={}'.format(sheetName)
             return response
-        print('update')
     return render(request, 'index.html', {'form':form})
-# Create your views here.
+
+def privacyView(request):
+    return render(request, 'privacy.html', {})
+
+
 
 def handler500View(request):
     """ Error 500 handling """

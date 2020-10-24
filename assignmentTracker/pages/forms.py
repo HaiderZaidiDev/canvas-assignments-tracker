@@ -7,5 +7,5 @@ class AccessTokenForm(forms.ModelForm):
         model = AccessToken
         fields = ['token']
         widgets = {
-            'token': forms.TextInput(attrs={'placeholder': 'Access Token', 'required':True})
+            'token': forms.TextInput(attrs={'placeholder': 'Access Token', 'class': 'token-input', 'required':True})
             }
