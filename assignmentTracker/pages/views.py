@@ -7,17 +7,16 @@ import os
 import mimetypes
 from django.http import HttpResponse
 from pytz import timezone
-
+import secrets
 
 def retrieveAssignments(course, token):
     """ Retrieves all the assignments for a course, and related info. """
     API_URL = "https://schulich.instructure.com/"
     # Change this link based on the School you attend.
-    API_KEY = token
     try:
         canvas = Canvas(API_URL, token)
     except:
-        return render(request, 'error500.html', {})
+        handler500View()
 
     # Initialize a new Canvas object
 
@@ -58,7 +57,7 @@ def writeToSheet(token):
     except:
         return render(request, 'error500.html', {})
 
-    workbook = load_workbook(filename='/var/www/canvas-assignments-to-excel/assignmentTracker/pages/sheets/master-sheets/Canvas Assignments (Master).xlsx')
+    workbook = load_workbook(filename='pages/sheets/master-sheets/Canvas Assignments (Master).xlsx')
     sheet = workbook.active
     allCourses = canvas.get_courses()
     courseIDS = []
@@ -77,7 +76,9 @@ def writeToSheet(token):
             sheet.cell(row=count, column=1, value=info['dueDate'])
             sheet.cell(row=count, column=3, value=info['dueTime'])
             sheet.cell(row=count, column=11, value=info['weight'])
-    workbook.save(filename="/var/www/canvas-assignments-to-excel/assignmentTracker/pages/sheets/user-sheets/Canvas-Assignments ({}).xlsx".format(token[5:10]))
+    hex_token = secrets.token_hex(4)
+    workbook.save(filename=f"pages/sheets/user-sheets/Canvas-Assignments ({hex_token}).xlsx")
+    return hex_token
     #Slices characters for differentiation of filename.
 
 def homeView(request):
@@ -86,26 +87,27 @@ def homeView(request):
     if form.is_valid():
         form.save()
         tokenClean = form.cleaned_data['token']
-        sheetName = "Canvas-Assignments ({}).xlsx".format(tokenClean[5:10])
-        writeToSheet(tokenClean)
+        print(tokenClean)
+        sheetName = f"Canvas-Assignments ({writeToSheet(tokenClean)}).xlsx"
+        #writeToSheet(tokenClean)
         # Serving spreadsheet.
-        with open("/var/www/canvas-assignments-to-excel/assignmentTracker/pages/sheets/user-sheets/{}".format(sheetName),'rb') as spreadsheet:
+        with open(f"pages/sheets/user-sheets/{sheetName}",'rb') as spreadsheet:
             sheet = spreadsheet.read()
             response = HttpResponse(sheet)
             response['Content-Type'] = 'mimetype/submimetype'
-            response['Content-Disposition'] = 'attachment; filename={}'.format(sheetName)
+            response['Content-Disposition'] = f'attachment; filename={sheetName}'
             return response
     return render(request, 'index.html', {'form':form})
 
 def privacyView(request):
     return render(request, 'privacy.html', {})
 
-
-
 def handler500View(request):
     """ Error 500 handling """
+    print("500")
     return render(request, 'error500.html', {})
 
-def handler404View(request):
+def handler404View(request, exception):
     """ Error 404 handling """
+    print("404")
     return render(request, 'error404.html', {})
