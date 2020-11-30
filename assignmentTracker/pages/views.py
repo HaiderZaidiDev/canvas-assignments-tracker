@@ -57,7 +57,7 @@ def writeToSheet(token):
     except:
         return render(request, 'error500.html', {})
 
-    workbook = load_workbook(filename='pages/sheets/master-sheets/Canvas Assignments (Master).xlsx')
+    workbook = load_workbook(filename='/var/www/canvas-assignments-to-excel/assignmentTracker/pages/sheets/master-sheets/Canvas Assignments (Master).xlsx')
     sheet = workbook.active
     allCourses = canvas.get_courses()
     courseIDS = []
@@ -77,7 +77,7 @@ def writeToSheet(token):
             sheet.cell(row=count, column=3, value=info['dueTime'])
             sheet.cell(row=count, column=11, value=info['weight'])
     hex_token = secrets.token_hex(4)
-    workbook.save(filename=f"pages/sheets/user-sheets/Canvas-Assignments ({hex_token}).xlsx")
+    workbook.save(filename=f"/var/www/canvas-assignments-to-excel/assignmentTracker/pages/sheets/user-sheets/Canvas-Assignments ({hex_token}).xlsx")
     return hex_token
     #Slices characters for differentiation of filename.
 
@@ -91,7 +91,7 @@ def homeView(request):
         sheetName = f"Canvas-Assignments ({writeToSheet(tokenClean)}).xlsx"
         #writeToSheet(tokenClean)
         # Serving spreadsheet.
-        with open(f"pages/sheets/user-sheets/{sheetName}",'rb') as spreadsheet:
+        with open(f"/var/www/canvas-assignments-to-excel/assignmentTracker/pages/sheets/user-sheets/{sheetName}",'rb') as spreadsheet:
             sheet = spreadsheet.read()
             response = HttpResponse(sheet)
             response['Content-Type'] = 'mimetype/submimetype'
