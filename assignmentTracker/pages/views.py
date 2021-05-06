@@ -13,6 +13,7 @@ def retrieveAssignments(course, token):
     """ Retrieves all the assignments for a course, and related info. """
     API_URL = "https://schulich.instructure.com/"
     # Change this link based on the School you attend.
+
     try:
         canvas = Canvas(API_URL, token)
     except:
@@ -55,7 +56,7 @@ def writeToSheet(token):
     try:
         canvas = Canvas(API_URL, token)
     except:
-        return render(request, 'error500.html', {})
+        handler500View()
 
     workbook = load_workbook(filename='/var/www/canvas-assignments-to-excel/assignmentTracker/pages/sheets/master-sheets/Canvas Assignments (Master).xlsx')
     sheet = workbook.active

@@ -1,11 +1,8 @@
-#liquid-shape {
-  bottom: 0;
-  right: 0;
-  position: fixed;
-}
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
 
+/* Global */
 h1, h2, p , li, .email-form, .email-label{
-  font-family: "Helvetica Neue";
+  font-family: 'Roboto', sans-serif;
 }
 
 h1 {
@@ -26,11 +23,24 @@ label {
   display: none;
 }
 
+nav {
+  text-transform: lowercase;
+  font-weight: 400;
+}
+
+#liquid-shape {
+  bottom: 0;
+  right: 0;
+  position: fixed;
+}
+
+/* Header */
 .header {
   margin-top: 12.5vh;
   margin-left: 7.5vw;
 }
 
+/* Form */
 .token-form {
   margin-top: 2.5vh;
   margin-left: 7vw;
@@ -53,15 +63,15 @@ label {
 }
 
 .block-item {
-    border-left: 2px solid #009D56;
-    margin-top: 3vh;
-    margin-left: 7vw;
-    height: auto;
-    font-family: "Helvetica Neue";
-
+  border-left: 2px solid #009D56;
+  margin-top: 3vh;
+  margin-left: 7vw;
+  height: auto;
+  font-family: "Helvetica Neue";
 
 }
 
+/* About us & Privacy */
 .block-item p {
   font-family: "Helvetica Neue";
   font-weight: 400;
@@ -70,9 +80,4 @@ label {
 .credits {
   padding-top: 1vh;
   margin-left: 7.5vw;
-}
-
-nav {
-  text-transform: lowercase;
-  font-weight: 400;
 }
