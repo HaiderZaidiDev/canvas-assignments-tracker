@@ -80,7 +80,6 @@ def writeToSheet(token):
     hex_token = secrets.token_hex(4)
     workbook.save(filename=f"/var/www/canvas-assignments-to-excel/assignmentTracker/pages/sheets/user-sheets/Canvas-Assignments ({hex_token}).xlsx")
     return hex_token
-    #Slices characters for differentiation of filename.
 
 def homeView(request):
     """ Renders home page, serves spreadsheet to user """
@@ -88,9 +87,7 @@ def homeView(request):
     if form.is_valid():
         form.save()
         tokenClean = form.cleaned_data['token']
-        print(tokenClean)
         sheetName = f"Canvas-Assignments ({writeToSheet(tokenClean)}).xlsx"
-        #writeToSheet(tokenClean)
         # Serving spreadsheet.
         with open(f"/var/www/canvas-assignments-to-excel/assignmentTracker/pages/sheets/user-sheets/{sheetName}",'rb') as spreadsheet:
             sheet = spreadsheet.read()
